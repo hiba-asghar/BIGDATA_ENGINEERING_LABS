@@ -1,0 +1,222 @@
+Microsoft Windows [Version 10.0.26100.6584]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\USER>docker exec -it hadoop-master bash
+root@hadoop-master:~# ./start-hadoop.sh
+
+
+
+
+Starting namenodes on [hadoop-master]
+hadoop-master: Warning: Permanently added 'hadoop-master,172.22.0.4' (ECDSA) to the list of known hosts.
+hadoop-master: WARNING: HADOOP_NAMENODE_OPTS has been replaced by HDFS_NAMENODE_OPTS. Using value of HADOOP_NAMENODE_OPTS.
+Starting datanodes
+WARNING: HADOOP_SECURE_DN_LOG_DIR has been replaced by HADOOP_SECURE_LOG_DIR. Using value of HADOOP_SECURE_DN_LOG_DIR.
+hadoop-slave1: Warning: Permanently added 'hadoop-slave1,172.22.0.3' (ECDSA) to the list of known hosts.
+hadoop-slave2: Warning: Permanently added 'hadoop-slave2,172.22.0.2' (ECDSA) to the list of known hosts.
+hadoop-slave2: WARNING: HADOOP_SECURE_DN_LOG_DIR has been replaced by HADOOP_SECURE_LOG_DIR. Using value of HADOOP_SECURE_DN_LOG_DIR.
+hadoop-slave2: WARNING: HADOOP_DATANODE_OPTS has been replaced by HDFS_DATANODE_OPTS. Using value of HADOOP_DATANODE_OPTS.
+hadoop-slave1: WARNING: HADOOP_SECURE_DN_LOG_DIR has been replaced by HADOOP_SECURE_LOG_DIR. Using value of HADOOP_SECURE_DN_LOG_DIR.
+hadoop-slave1: WARNING: HADOOP_DATANODE_OPTS has been replaced by HDFS_DATANODE_OPTS. Using value of HADOOP_DATANODE_OPTS.
+Starting secondary namenodes [hadoop-master]
+hadoop-master: Warning: Permanently added 'hadoop-master,172.22.0.4' (ECDSA) to the list of known hosts.
+hadoop-master: WARNING: HADOOP_SECONDARYNAMENODE_OPTS has been replaced by HDFS_SECONDARYNAMENODE_OPTS. Using value of HADOOP_SECONDARYNAMENODE_OPTS.
+Starting resourcemanager
+Starting nodemanagers
+hadoop-slave1: Warning: Permanently added 'hadoop-slave1,172.22.0.3' (ECDSA) to the list of known hosts.
+hadoop-slave2: Warning: Permanently added 'hadoop-slave2,172.22.0.2' (ECDSA) to the list of known hosts.
+
+
+root@hadoop-master:~# $HADOOP_HOME/sbin/mr-jobhistory-daemon.sh
+start historyserver
+WARNING: Use of this script to start the MR JobHistory daemon is deprecated.
+WARNING: Attempting to execute replacement "mapred --daemon start" instead.
+root@hadoop-master:~# hdfs dfs -mkdir
+-mkdir: Not enough arguments: expected 1 but got 0
+Usage: hadoop fs [generic options]
+        [-appendToFile <localsrc> ... <dst>]
+        [-cat [-ignoreCrc] <src> ...]
+        [-checksum <src> ...]
+        [-chgrp [-R] GROUP PATH...]
+        [-chmod [-R] <MODE[,MODE]... | OCTALMODE> PATH...]
+        [-chown [-R] [OWNER][:[GROUP]] PATH...]
+        [-copyFromLocal [-f] [-p] [-l] [-d] [-t <thread count>]<localsrc> ... <dst>]
+        [-copyToLocal [-f] [-p] [-ignoreCrc] [-crc] <src> ... <localdst>]
+        [-count [-q] [-h] [-v] [-t [<storage type>]] [-u] [-x] [-e] <path> ...]
+        [-cp [-f] [-p | -p[topax]] [-d] <src> ... <dst>]
+        [-createSnapshot <snapshotDir> [<snapshotName>]]
+        [-deleteSnapshot <snapshotDir> <snapshotName>]
+        [-df [-h] [<path> ...]]
+        [-du [-s] [-h] [-v] [-x] <path> ...]
+        [-expunge]
+        [-find <path> ... <expression> ...]
+        [-get [-f] [-p] [-ignoreCrc] [-crc] <src> ... <localdst>]
+        [-getfacl [-R] <path>]
+        [-getfattr [-R] {-n name | -d} [-e en] <path>]
+        [-getmerge [-nl] [-skip-empty-file] <src> <localdst>]
+        [-head <file>]
+        [-help [cmd ...]]
+        [-ls [-C] [-d] [-h] [-q] [-R] [-t] [-S] [-r] [-u] [-e] [<path> ...]]
+        [-mkdir [-p] <path> ...]
+        [-moveFromLocal <localsrc> ... <dst>]
+        [-moveToLocal <src> <localdst>]
+        [-mv <src> ... <dst>]
+        [-put [-f] [-p] [-l] [-d] <localsrc> ... <dst>]
+        [-renameSnapshot <snapshotDir> <oldName> <newName>]
+        [-rm [-f] [-r|-R] [-skipTrash] [-safely] <src> ...]
+        [-rmdir [--ignore-fail-on-non-empty] <dir> ...]
+        [-setfacl [-R] [{-b|-k} {-m|-x <acl_spec>} <path>]|[--set <acl_spec> <path>]]
+        [-setfattr {-n name [-v value] | -x name} <path>]
+        [-setrep [-R] [-w] <rep> <path> ...]
+        [-stat [format] <path> ...]
+        [-tail [-f] <file>]
+        [-test -[defsz] <path>]
+        [-text [-ignoreCrc] <src> ...]
+        [-touch [-a] [-m] [-t TIMESTAMP ] [-c] <path> ...]
+        [-touchz <path> ...]
+        [-truncate [-w] <length> <path> ...]
+        [-usage [cmd ...]]
+
+Generic options supported are:
+-conf <configuration file>        specify an application configuration file
+-D <property=value>               define a value for a given property
+-fs <file:///|hdfs://namenode:port> specify default filesystem URL to use, overrides 'fs.defaultFS' property from configurations.
+-jt <local|resourcemanager:port>  specify a ResourceManager
+-files <file1,...>                specify a comma-separated list of files to be copied to the map reduce cluster
+-libjars <jar1,...>               specify a comma-separated list of jar files to be included in the classpath
+-archives <archive1,...>          specify a comma-separated list of archives to be unarchived on the compute machines
+
+The general command line syntax is:
+command [genericOptions] [commandOptions]
+
+Usage: hadoop fs [generic options] -mkdir [-p] <path> ...
+root@hadoop-master:~# hdfs dfs -mkdir input
+mkdir: `hdfs://hadoop-master:9000/user/root': No such file or directory
+root@hadoop-master:~# hadoop fs -mkdir -p /user/root
+root@hadoop-master:~# hdfs dfs -mkdir input
+root@hadoop-master:~# hdfs dfs -ls
+Found 1 items
+drwxr-xr-x   - root supergroup          0 2025-10-07 22:50 input
+root@hadoop-master:~# hdfs dfs -ls -R -h ./
+drwxr-xr-x   - root supergroup          0 2025-10-07 22:50 input
+root@hadoop-master:~# hdfs dfs -put /shared_volume/purchases.txt
+root@hadoop-master:~# hdfs dfs -ls -R
+drwxr-xr-x   - root supergroup          0 2025-10-07 22:50 input
+-rw-r--r--   2 root supergroup       2549 2025-10-07 23:05 purchases.txt
+root@hadoop-master:~# hdfs dfs -tail purchases.txt
+ustin   Sporting Goods  327.75  Discover
+2012-01-01      09:01   Portland        CDs     108.69  Amex
+2012-01-01      09:01   Riverside       Sporting Goods  15.41  Discover
+2012-01-01      09:01   Reno    Toys    80.46   Visa
+2012-01-01      09:01   Anchorage       Music   298.86  MasterCard
+2012-01-01      09:01   Pittsburgh      Sporting Goods  475.26 Amex
+2012-01-01      09:01   Spokane Garden  3.85    Amex
+2012-01-01      09:01   Spokane Computers       287.65  MasterCard
+2012-01-01      09:01   Fresno  CDs     466.64  MasterCard
+2012-01-01      09:01   Omaha   Baby    255.68  MasterCard
+2012-01-01      09:01   Anchorage       DVDs    6.38    Amex
+2012-01-01      09:01   Aurora  Consumer Electronics    117.81 MasterCard
+2012-01-01      09:01   Philadelphia    DVDs    351.31  Cash
+2012-01-01      09:01   Fremont Baby    222.61  Cash
+2012-01-01      09:01   Anchorage       Crafts  22.36   Amex
+2012-01-01      09:02   Norfolk Women's Clothing        189.01 Amex
+2012-01-01      09:02   Chandler        Books   414.08  Cash
+2012-01-01      09:02   Minneapolis     Computers       182.05 Visa
+2012-01-01      09:02   Honolulu        Cameras 345.18  Discover
+2012-01-01      09:02   Indianapolis    Books   135.96  Discover
+2012-01-01      09:02   Chandler        Books   344.09  Discoverroot@hadoop-master:~# hdfs dfs -rm purchases.txt
+Deleted purchases.txt
+root@hadoop-master:~# hdfs dfs -copyFromLocal /shared_volume/purchases.txt ./input
+root@hadoop-master:~# hdfs dfs -ls
+Found 1 items
+drwxr-xr-x   - root supergroup          0 2025-10-07 23:20 input
+root@hadoop-master:~# hdfs dfs -chmod 777 ./input/purchases.txt
+root@hadoop-master:~# hdfs dfs -chmod ugo-x ./input/purchases.txt
+root@hadoop-master:~# hdfs dfs -mv /input/purchases.txt
+-mv: Not enough arguments: expected 2 but got 1
+Usage: hadoop fs [generic options]
+        [-appendToFile <localsrc> ... <dst>]
+        [-cat [-ignoreCrc] <src> ...]
+        [-checksum <src> ...]
+        [-chgrp [-R] GROUP PATH...]
+        [-chmod [-R] <MODE[,MODE]... | OCTALMODE> PATH...]
+        [-chown [-R] [OWNER][:[GROUP]] PATH...]
+        [-copyFromLocal [-f] [-p] [-l] [-d] [-t <thread count>]<localsrc> ... <dst>]
+        [-copyToLocal [-f] [-p] [-ignoreCrc] [-crc] <src> ... <localdst>]
+        [-count [-q] [-h] [-v] [-t [<storage type>]] [-u] [-x] [-e] <path> ...]
+        [-cp [-f] [-p | -p[topax]] [-d] <src> ... <dst>]
+        [-createSnapshot <snapshotDir> [<snapshotName>]]
+        [-deleteSnapshot <snapshotDir> <snapshotName>]
+        [-df [-h] [<path> ...]]
+        [-du [-s] [-h] [-v] [-x] <path> ...]
+        [-expunge]
+        [-find <path> ... <expression> ...]
+        [-get [-f] [-p] [-ignoreCrc] [-crc] <src> ... <localdst>]
+        [-getfacl [-R] <path>]
+        [-getfattr [-R] {-n name | -d} [-e en] <path>]
+        [-getmerge [-nl] [-skip-empty-file] <src> <localdst>]
+        [-head <file>]
+        [-help [cmd ...]]
+        [-ls [-C] [-d] [-h] [-q] [-R] [-t] [-S] [-r] [-u] [-e] [<path> ...]]
+        [-mkdir [-p] <path> ...]
+        [-moveFromLocal <localsrc> ... <dst>]
+        [-moveToLocal <src> <localdst>]
+        [-mv <src> ... <dst>]
+        [-put [-f] [-p] [-l] [-d] <localsrc> ... <dst>]
+        [-renameSnapshot <snapshotDir> <oldName> <newName>]
+        [-rm [-f] [-r|-R] [-skipTrash] [-safely] <src> ...]
+        [-rmdir [--ignore-fail-on-non-empty] <dir> ...]
+        [-setfacl [-R] [{-b|-k} {-m|-x <acl_spec>} <path>]|[--set <acl_spec> <path>]]
+        [-setfattr {-n name [-v value] | -x name} <path>]
+        [-setrep [-R] [-w] <rep> <path> ...]
+        [-stat [format] <path> ...]
+        [-tail [-f] <file>]
+        [-test -[defsz] <path>]
+        [-text [-ignoreCrc] <src> ...]
+        [-touch [-a] [-m] [-t TIMESTAMP ] [-c] <path> ...]
+        [-touchz <path> ...]
+        [-truncate [-w] <length> <path> ...]
+        [-usage [cmd ...]]
+
+Generic options supported are:
+-conf <configuration file>        specify an application configuration file
+-D <property=value>               define a value for a given property
+-fs <file:///|hdfs://namenode:port> specify default filesystem URL to use, overrides 'fs.defaultFS' property from configurations.
+-jt <local|resourcemanager:port>  specify a ResourceManager
+-files <file1,...>                specify a comma-separated list of files to be copied to the map reduce cluster
+-libjars <jar1,...>               specify a comma-separated list of jar files to be included in the classpath
+-archives <archive1,...>          specify a comma-separated list of archives to be unarchived on the compute machines
+
+The general command line syntax is:
+command [genericOptions] [commandOptions]
+
+Usage: hadoop fs [generic options] -mv <src> ... <dst>
+root@hadoop-master:~# hdfs dfs -get ./input/purchases.txt /share
+d_volume/achat.txt
+root@hadoop-master:~# hdfs dfs -mkdir web_input
+root@hadoop-master:~# wget http://www.textfiles.com/etext/FICTIO
+N/alice.txt
+--2025-10-07 23:42:08--  http://www.textfiles.com/etext/FICTION/alice.txt
+Resolving www.textfiles.com (www.textfiles.com)... 208.86.224.90, 2c0f:fa18:0:10::d056:e05a
+Connecting to www.textfiles.com (www.textfiles.com)|208.86.224.90|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 150886 (147K) [text/plain]
+Saving to: 'alice.txt'
+
+alice.txt       100%[=======>] 147.35K   207KB/s    in 0.7s
+
+2025-10-07 23:42:10 (207 KB/s) - 'alice.txt' saved [150886/150886]
+
+root@hadoop-master:~# hdfs dfs -put /shared_volume/alice.txt web_input
+root@hadoop-master:~# hdfs dfs -ls web_input
+Found 1 items
+-rw-r--r--   2 root supergroup     150886 2025-10-07 23:44 web_input/alice.txt
+root@hadoop-master:~# exit
+exit
+
+C:\Users\USER>docker stop hadoop-master hadoop-slave1 hadoop-slave2
+hadoop-master
+hadoop-slave1
+hadoop-slave2
+
+C:\Users\USER>
